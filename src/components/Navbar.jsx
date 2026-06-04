@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
@@ -12,6 +12,7 @@ import { formatDistanceToNow } from 'date-fns';
 export default function Navbar() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [showNotifs, setShowNotifs] = useState(false);
   const [notifications, setNotifications] = useState([]);
@@ -54,6 +55,10 @@ export default function Navbar() {
     if (!timestamp) return 'Just now';
     return formatDistanceToNow(timestamp.toDate(), { addSuffix: true });
   };
+
+  if (location.pathname === '/') {
+    return null;
+  }
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 relative z-50">

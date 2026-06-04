@@ -172,16 +172,42 @@ export default function Landing() {
         {/* Social Proof Section */}
         <section id="testimonials" className="py-24 bg-slate-900 text-white relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMGYxNzJhIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjMWUzYThhIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] opacity-20"></div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="flex justify-center gap-2 text-yellow-400 mb-6 text-xl">
-              <FiStar className="fill-current" />
-              <FiStar className="fill-current" />
-              <FiStar className="fill-current" />
-              <FiStar className="fill-current" />
-              <FiStar className="fill-current" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-green-400 font-bold tracking-wide uppercase text-sm mb-3">Wall of Love</h2>
+              <h3 className="text-3xl md:text-5xl font-extrabold text-white mb-6">Don't just take our word for it.</h3>
             </div>
-            <h3 className="text-3xl md:text-5xl font-bold mb-8">"VitalSync completely changed how I look at my health. The dashboard is absolutely beautiful."</h3>
-            <p className="text-slate-400 font-medium tracking-wide uppercase">— Sarah Jenkins, Marathon Runner</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { name: "Sarah J.", role: "Marathon Runner", quote: "VitalSync completely changed how I look at my health. The dashboard is absolutely beautiful and so easy to use." },
+                { name: "Marcus T.", role: "Fitness Coach", quote: "I recommend this to all my clients. The visual insights into hydration and sleep are game-changing for recovery." },
+                { name: "Elena R.", role: "Yoga Instructor", quote: "Finally, a health app that isn't cluttered! The clean design helps me focus on exactly what I need to track." },
+                { name: "David L.", role: "Software Engineer", quote: "The data visualizations are incredible. As a data nerd, I love seeing my trends graphed out perfectly." },
+                { name: "Chloe M.", role: "Nutritionist", quote: "Setting daily goals and getting those subtle notifications keeps me on track without feeling overwhelming." },
+                { name: "James K.", role: "Weekend Warrior", quote: "I've tried 10 different health apps. This is the first one I've actually stuck with for more than a month." }
+              ].map((t, i) => (
+                <div key={i} className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 p-6 rounded-2xl hover:bg-slate-800 transition-colors">
+                  <div className="flex gap-1 text-yellow-400 mb-4 text-sm">
+                    <FiStar className="fill-current" />
+                    <FiStar className="fill-current" />
+                    <FiStar className="fill-current" />
+                    <FiStar className="fill-current" />
+                    <FiStar className="fill-current" />
+                  </div>
+                  <p className="text-slate-300 mb-6 leading-relaxed">"{t.quote}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-green-900/50 text-green-400 flex items-center justify-center font-bold text-sm border border-green-800">
+                      {t.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="text-white font-bold text-sm">{t.name}</div>
+                      <div className="text-slate-500 text-xs">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
