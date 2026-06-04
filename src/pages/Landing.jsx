@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from '../components/Footer';
-import { FiActivity, FiPieChart, FiTarget, FiArrowRight, FiCheckCircle, FiStar, FiHeart } from 'react-icons/fi';
+import { FiActivity, FiPieChart, FiTarget, FiArrowRight, FiCheckCircle, FiStar, FiHeart, FiSun, FiMoon } from 'react-icons/fi';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Landing() {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +36,9 @@ export default function Landing() {
               <a href="#testimonials" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">Reviews</a>
             </div>
             <div className="flex items-center gap-4">
+              <button onClick={toggleTheme} className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none">
+                {theme === 'dark' ? <FiSun className="h-5 w-5" /> : <FiMoon className="h-5 w-5" />}
+              </button>
               <Link to="/login" className="font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors hidden sm:block">
                 Log in
               </Link>
