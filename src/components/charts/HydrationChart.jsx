@@ -23,63 +23,86 @@ export default function HydrationChart({ data }) {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const parsedData = data.map(d => ({ ...d, parsedDate: parseISO(d.date) })).sort((a,b) => a.parsedDate - b.parsedDate);
+    // We will make a Donut Chart showing how many days hit the goal (8+ glasses) vs missed
+    const goal = 8;
+    const hit = data.filter(d => d.hydrationGlasses >= goal).length;
+    const miss = data.length - hit;
+    
+    const pieData = [
+      { label: 'Hit Goal', value: hit, color: '#3b82f6' },
+      { label: 'Missed Goal', value: miss, color: '#93c5fd' }
+    ].filter(d => d.value > 0); // Remove empty slices
 
-    // X axis (dates)
-    const x = d3.scaleBand()
-      .range([0, width])
-      .domain(parsedData.map(d => d.date))
-      .padding(.2);
+    const radius = Math.min(width, height) / 2;
 
-    svg.append('g')
-      .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x).tickFormat(d => format(parseISO(d), 'MMM dd')))
-      .attr('color', '#9ca3af');
+    const g = svg.append('g')
+      .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    // Y axis (Glasses)
-    const y = d3.scaleLinear()
-      .domain([0, Math.max(d3.max(parsedData, d => d.hydrationGlasses) + 2, 12)])
-      .range([height, 0]);
+    const pie = d3.pie()
+      .value(d => d.value)
+      .sort(null);
 
-    svg.append('g')
-      .call(d3.axisLeft(y).ticks(5))
-      .attr('color', '#9ca3af');
+    const arc = d3.arc()
+      .innerRadius(radius * 0.5) // This makes it a donut
+      .outerRadius(radius * 0.8);
+
+    const hoverArc = d3.arc()
+      .innerRadius(radius * 0.5)
+      .outerRadius(radius * 0.9);
 
     const tooltip = d3.select(wrapperRef.current)
       .append('div')
       .style('opacity', 0)
       .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
 
-    // Goal line
-    svg.append('line')
-      .attr('x1', 0).attr('y1', y(8)).attr('x2', width).attr('y2', y(8))
-      .style('stroke-dasharray', '3, 3').style('stroke', '#60a5fa');
-
-    // Bars
-    svg.selectAll('myRect')
-      .data(parsedData)
+    const arcs = g.selectAll('.arc')
+      .data(pie(pieData))
       .enter()
-      .append('rect')
-      .attr('x', d => x(d.date))
-      .attr('y', height)
-      .attr('width', x.bandwidth())
-      .attr('height', 0)
-      .attr('fill', '#3b82f6')
+      .append('g')
+      .attr('class', 'arc');
+
+    arcs.append('path')
+      .attr('d', arc)
+      .attr('fill', d => d.data.color)
+      .attr('stroke', '#fff')
+      .style('stroke-width', '2px')
       .on('mouseover', (event, d) => {
-        d3.select(event.currentTarget).attr('fill', '#2563eb');
+        d3.select(event.currentTarget).transition().duration(200).attr('d', hoverArc);
         tooltip.transition().duration(200).style('opacity', 1);
-        tooltip.html(`Date: ${format(d.parsedDate, 'MMM dd')}<br/>Glasses: ${d.hydrationGlasses}`)
+        tooltip.html(`${d.data.label}<br/>${d.data.value} days (${Math.round((d.data.value / data.length) * 100)}%)`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
       .on('mouseout', (event) => {
-        d3.select(event.currentTarget).attr('fill', '#3b82f6');
+        d3.select(event.currentTarget).transition().duration(200).attr('d', arc);
         tooltip.transition().duration(500).style('opacity', 0);
-      })
-      .transition()
-      .duration(800)
-      .attr('y', d => y(d.hydrationGlasses))
-      .attr('height', d => height - y(d.hydrationGlasses));
+      });
+
+    // Add labels if there's room
+    arcs.append('text')
+      .attr('transform', d => `translate(${arc.centroid(d)})`)
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#fff')
+      .attr('font-size', '12px')
+      .attr('font-weight', 'bold')
+      .text(d => d.data.value > 0 ? d.data.value : '');
+
+    // Add center text
+    g.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '-0.5em')
+      .attr('font-size', '12px')
+      .attr('fill', '#6b7280')
+      .text('Goal');
+      
+    g.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '1em')
+      .attr('font-size', '20px')
+      .attr('font-weight', 'bold')
+      .attr('fill', '#1f2937')
+      .attr('class', 'dark:fill-white')
+      .text(`${hit}/${data.length} days`);
 
     return () => {
       d3.select(wrapperRef.current).selectAll('.d3-tooltip').remove();
@@ -87,9 +110,9 @@ export default function HydrationChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 relative" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 mb-2">Hydration Trend</h3>
-      <svg ref={svgRef}></svg>
+    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
+      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Hydration Goals Hit</h3>
+      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
     </div>
   );
 }

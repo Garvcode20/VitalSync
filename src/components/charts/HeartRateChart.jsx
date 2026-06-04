@@ -124,9 +124,9 @@ export default function HeartRateChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 relative" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 mb-2">Heart Rate Trend</h3>
-      <svg ref={svgRef}></svg>
+    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
+      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Heart Rate Trend</h3>
+      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
     </div>
   );
 }

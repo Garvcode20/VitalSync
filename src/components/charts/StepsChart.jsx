@@ -24,24 +24,27 @@ export default function StepsChart({ data }) {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // X axis (steps)
-    const x = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.steps) || 10000])
-      .range([0, width]);
+    // Parse dates and sort
+    const parsedData = data.map(d => ({ ...d, parsedDate: parseISO(d.date) })).sort((a,b) => a.parsedDate - b.parsedDate);
+
+    // X axis (dates)
+    const x = d3.scaleBand()
+      .range([0, width])
+      .domain(parsedData.map(d => d.date))
+      .padding(.2);
 
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(5))
+      .call(d3.axisBottom(x).tickFormat(d => format(parseISO(d), 'MMM dd')))
       .attr('color', '#9ca3af');
 
-    // Y axis (dates)
-    const y = d3.scaleBand()
-      .range([height, 0]) // Reverse to show latest at bottom or top depending on data sort
-      .domain(data.map(d => d.date))
-      .padding(.1);
+    // Y axis (steps)
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(parsedData, d => d.steps) * 1.2 || 10000])
+      .range([height, 0]);
 
     svg.append('g')
-      .call(d3.axisLeft(y).tickFormat(d => format(parseISO(d), 'MMM dd')))
+      .call(d3.axisLeft(y).ticks(5))
       .attr('color', '#9ca3af');
 
     // Tooltip
@@ -50,38 +53,37 @@ export default function StepsChart({ data }) {
       .style('opacity', 0)
       .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
 
+    // Goal line
+    svg.append('line')
+      .attr('x1', 0).attr('y1', y(8000)).attr('x2', width).attr('y2', y(8000))
+      .style('stroke-dasharray', '3, 3').style('stroke', '#10b981');
+
     // Bars
     svg.selectAll('myRect')
-      .data(data)
+      .data(parsedData)
       .enter()
       .append('rect')
-      .attr('x', x(0))
-      .attr('y', d => y(d.date))
-      .attr('width', 0)
-      .attr('height', y.bandwidth())
+      .attr('x', d => x(d.date))
+      .attr('y', height)
+      .attr('width', x.bandwidth())
+      .attr('height', 0)
+      .attr('rx', 4) // Rounded tops
       .attr('fill', d => d.steps >= 8000 ? '#10b981' : d.steps >= 5000 ? '#fbbf24' : '#ef4444')
       .on('mouseover', (event, d) => {
+        d3.select(event.currentTarget).attr('opacity', 0.8);
         tooltip.transition().duration(200).style('opacity', 1);
-        tooltip.html(`Date: ${format(parseISO(d.date), 'MMM dd')}<br/>Steps: ${d.steps}`)
+        tooltip.html(`Date: ${format(d.parsedDate, 'MMM dd')}<br/>Steps: ${d.steps}`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
-      .on('mouseout', () => {
+      .on('mouseout', (event) => {
+        d3.select(event.currentTarget).attr('opacity', 1);
         tooltip.transition().duration(500).style('opacity', 0);
       })
       .transition()
       .duration(800)
-      .attr('width', d => x(d.steps));
-
-    // Goal line
-    svg.append('line')
-      .attr('x1', x(8000))
-      .attr('y1', 0)
-      .attr('x2', x(8000))
-      .attr('y2', height)
-      .style('stroke-dasharray', '3, 3')
-      .style('stroke', '#6b7280')
-      .style('stroke-width', 2);
+      .attr('y', d => y(d.steps))
+      .attr('height', d => height - y(d.steps));
 
     return () => {
       d3.select(wrapperRef.current).selectAll('.d3-tooltip').remove();
@@ -89,9 +91,9 @@ export default function StepsChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 relative" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 mb-2">Steps Trend</h3>
-      <svg ref={svgRef}></svg>
+    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
+      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Steps Trend</h3>
+      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
     </div>
   );
 }
