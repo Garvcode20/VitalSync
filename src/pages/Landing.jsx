@@ -15,25 +15,26 @@ export default function Landing() {
   }, [user, navigate]);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col font-sans overflow-x-hidden transition-colors">
       
       {/* Sticky Navigation */}
-      <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100 transition-all">
+      <nav className="fixed w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-50 border-b border-gray-100 dark:border-slate-800 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-green-200">
                 V
               </div>
-              <span className="font-extrabold text-2xl tracking-tight text-slate-900">VitalSync</span>
+              <span className="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white">VitalSync</span>
             </div>
-            <div className="hidden md:flex items-center gap-8 font-medium text-slate-600">
-              <a href="#features" className="hover:text-green-600 transition-colors">Features</a>
-              <a href="#how-it-works" className="hover:text-green-600 transition-colors">How it Works</a>
-              <a href="#testimonials" className="hover:text-green-600 transition-colors">Reviews</a>
+            </div>
+            <div className="hidden md:flex items-center gap-8 font-medium text-slate-600 dark:text-slate-300">
+              <a href="#features" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">Features</a>
+              <a href="#how-it-works" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">How it Works</a>
+              <a href="#testimonials" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">Reviews</a>
             </div>
             <div className="flex items-center gap-4">
-              <Link to="/login" className="font-semibold text-slate-600 hover:text-slate-900 transition-colors hidden sm:block">
+              <Link to="/login" className="font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors hidden sm:block">
                 Log in
               </Link>
               <Link to="/register" className="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 px-6 rounded-full shadow-md transition-all hover:shadow-lg transform hover:-translate-y-0.5">
@@ -64,17 +65,17 @@ export default function Landing() {
                   </span>
                   VitalSync v2.0 is now live
                 </div>
-                <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-6">
                   Your Wellness,<br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-400">Connected.</span>
                 </h1>
-                <p className="mt-4 text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <p className="mt-4 text-xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   Track your health metrics, visualize trends, and crush your wellness goals with the most beautiful dashboard ever created.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                  <Link to="/register" className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-green-200 transition-all hover:shadow-2xl hover:shadow-green-300 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                  <Link to="/register" className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-green-200 dark:shadow-none transition-all hover:shadow-2xl hover:shadow-green-300 dark:hover:shadow-none transform hover:-translate-y-1 flex items-center justify-center gap-2">
                     Get Started for Free <FiArrowRight />
                   </Link>
-                  <Link to="/login" className="bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 font-bold py-4 px-8 rounded-full transition-all flex items-center justify-center">
+                  <Link to="/login" className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold py-4 px-8 rounded-full transition-all flex items-center justify-center">
                     View Demo
                   </Link>
                 </div>
@@ -92,33 +93,33 @@ export default function Landing() {
               <div className="lg:col-span-6 mt-16 lg:mt-0 hidden md:block">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-tr from-green-400 to-teal-300 rounded-[2.5rem] transform rotate-3 scale-105 opacity-20 blur-xl"></div>
-                  <div className="relative bg-white/80 backdrop-blur-xl border border-white/50 shadow-2xl rounded-[2rem] p-6 overflow-hidden">
+                  <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 shadow-2xl rounded-[2rem] p-6 overflow-hidden">
                     {/* Fake Dashboard UI */}
-                    <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
+                    <div className="flex items-center justify-between mb-8 border-b border-slate-100 dark:border-slate-700 pb-4">
                       <div className="flex gap-2">
                         <div className="w-3 h-3 rounded-full bg-red-400"></div>
                         <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                         <div className="w-3 h-3 rounded-full bg-green-400"></div>
                       </div>
-                      <div className="h-6 w-32 bg-slate-100 rounded-full"></div>
+                      <div className="h-6 w-32 bg-slate-100 dark:bg-slate-700 rounded-full"></div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <div className="h-4 w-16 bg-slate-200 rounded mb-3"></div>
+                      <div className="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-100 dark:border-slate-600/50">
+                        <div className="h-4 w-16 bg-slate-200 dark:bg-slate-600 rounded mb-3"></div>
                         <div className="flex items-end gap-2">
-                          <div className="text-3xl font-bold text-slate-800">8,432</div>
+                          <div className="text-3xl font-bold text-slate-800 dark:text-white">8,432</div>
                           <div className="text-sm text-green-500 font-bold mb-1">+12%</div>
                         </div>
                       </div>
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <div className="h-4 w-16 bg-slate-200 rounded mb-3"></div>
+                      <div className="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-100 dark:border-slate-600/50">
+                        <div className="h-4 w-16 bg-slate-200 dark:bg-slate-600 rounded mb-3"></div>
                         <div className="flex items-end gap-2">
-                          <div className="text-3xl font-bold text-slate-800">7.2h</div>
+                          <div className="text-3xl font-bold text-slate-800 dark:text-white">7.2h</div>
                           <div className="text-sm text-green-500 font-bold mb-1">+5%</div>
                         </div>
                       </div>
                     </div>
-                    <div className="bg-slate-50 rounded-xl border border-slate-100 h-40 flex items-end p-4 gap-2">
+                    <div className="bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-100 dark:border-slate-600/50 h-40 flex items-end p-4 gap-2">
                        {/* Fake Chart Bars */}
                        {[40, 70, 45, 90, 65, 80, 100].map((h, i) => (
                          <div key={i} className="bg-green-400 rounded-t-md w-full opacity-80 hover:opacity-100 transition-opacity" style={{ height: `${h}%` }}></div>
@@ -144,12 +145,12 @@ export default function Landing() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-24 bg-white relative">
+        <section id="features" className="py-24 bg-white dark:bg-slate-900 relative transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-green-600 font-bold tracking-wide uppercase text-sm mb-3">Powerful Features</h2>
-              <h3 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6">Everything you need to thrive.</h3>
-              <p className="text-xl text-slate-600">No more messy spreadsheets or disjointed apps. We brought all your wellness data under one roof.</p>
+              <h3 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">Everything you need to thrive.</h3>
+              <p className="text-xl text-slate-600 dark:text-slate-300">No more messy spreadsheets or disjointed apps. We brought all your wellness data under one roof.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -158,12 +159,12 @@ export default function Landing() {
                 { icon: <FiPieChart />, color: "blue", title: "Visual Insights", desc: "Interactive, pixel-perfect D3.js charts help you understand your patterns over time." },
                 { icon: <FiTarget />, color: "purple", title: "Goal Setting", desc: "Set custom targets, track daily progress, and get celebrated for your wellness wins." }
               ].map((f, i) => (
-                <div key={i} className="group bg-slate-50 border border-slate-100 p-8 rounded-[2rem] hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-300 transform hover:-translate-y-2">
-                  <div className={`w-14 h-14 bg-white shadow-md rounded-2xl flex items-center justify-center text-[28px] mb-6 text-${f.color}-500 group-hover:scale-110 transition-transform`}>
+                <div key={i} className="group bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-8 rounded-[2rem] hover:bg-white dark:hover:bg-slate-700 hover:shadow-2xl hover:shadow-slate-200/50 dark:hover:shadow-black/50 transition-all duration-300 transform hover:-translate-y-2">
+                  <div className={`w-14 h-14 bg-white dark:bg-slate-600 shadow-md rounded-2xl flex items-center justify-center text-[28px] mb-6 text-${f.color}-500 dark:text-${f.color}-400 group-hover:scale-110 transition-transform`}>
                     {f.icon}
                   </div>
-                  <h4 className="text-2xl font-bold text-slate-900 mb-4">{f.title}</h4>
-                  <p className="text-slate-600 leading-relaxed">{f.desc}</p>
+                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{f.title}</h4>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -213,10 +214,10 @@ export default function Landing() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="py-24 bg-slate-50 border-t border-slate-200">
+        <section id="how-it-works" className="py-24 bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
              <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">Get started in 3 simple steps</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Get started in 3 simple steps</h2>
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-8">
               {[
@@ -225,11 +226,11 @@ export default function Landing() {
                 { step: "3", title: "Improve", desc: "Watch your wellness trends grow." }
               ].map((s, i) => (
                 <div key={i} className="flex flex-col items-center text-center max-w-xs relative">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black mb-6 shadow-lg ${i === 2 ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-slate-900 border border-slate-100'}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black mb-6 shadow-lg ${i === 2 ? 'bg-green-500 text-white shadow-green-200 dark:shadow-none' : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-600'}`}>
                     {s.step}
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">{s.title}</h4>
-                  <p className="text-slate-500">{s.desc}</p>
+                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{s.title}</h4>
+                  <p className="text-slate-500 dark:text-slate-400">{s.desc}</p>
                   
                   {i < 2 && (
                     <div className="hidden md:block absolute top-8 left-full w-full -ml-8 px-4 text-slate-300">
