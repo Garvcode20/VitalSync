@@ -11,6 +11,11 @@ import Notifications from './pages/Notifications';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import Pricing from './pages/Pricing';
+import About from './pages/About';
+import Security from './pages/Security';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 
 export default function App() {
   return (
@@ -20,6 +25,11 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
