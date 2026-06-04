@@ -28,7 +28,7 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-slate-900 mb-4">Company</h4>
             <ul className="space-y-3 text-slate-500">
-              <li><Link to="/about" className="hover:text-green-600 transition-colors">About Garv</Link></li>
+              <li><Link to="/about" className="hover:text-green-600 transition-colors">About Us</Link></li>
               <li><Link to="/privacy" className="hover:text-green-600 transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-green-600 transition-colors">Terms of Service</Link></li>
             </ul>
