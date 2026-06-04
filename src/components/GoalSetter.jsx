@@ -16,16 +16,21 @@ export default function GoalSetter({ onGoalsUpdated }) {
   useEffect(() => {
     const fetchGoal = async () => {
       if (!user) return;
-      const goals = await getGoals(user.uid);
-      if (goals.length > 0) {
-        setExistingGoalId(goals[0].id);
-        setFormData({
-          targetSteps: goals[0].targetSteps || '',
-          targetSleep: goals[0].targetSleep || '',
-          targetHydration: goals[0].targetHydration || ''
-        });
+      try {
+        const goals = await getGoals(user.uid);
+        if (goals.length > 0) {
+          setExistingGoalId(goals[0].id);
+          setFormData({
+            targetSteps: goals[0].targetSteps || '',
+            targetSleep: goals[0].targetSleep || '',
+            targetHydration: goals[0].targetHydration || ''
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching goals:", err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchGoal();
   }, [user]);

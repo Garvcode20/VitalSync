@@ -14,9 +14,10 @@ export const addHealthLog = async (userId, data) => {
 };
 
 export const getHealthLogs = async (userId) => {
-  const q = query(collection(db, 'healthLogs'), where('userId', '==', userId), orderBy('date', 'desc'));
+  const q = query(collection(db, 'healthLogs'), where('userId', '==', userId));
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const logs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return logs.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
 export const getHealthLogByDate = async (userId, dateStr) => {
@@ -44,9 +45,10 @@ export const addGoal = async (userId, goalData) => {
 };
 
 export const getGoals = async (userId) => {
-  const q = query(collection(db, 'goals'), where('userId', '==', userId), orderBy('createdAt', 'desc'));
+  const q = query(collection(db, 'goals'), where('userId', '==', userId));
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const goals = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return goals.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
 };
 
 export const updateGoal = async (goalId, data) => {
