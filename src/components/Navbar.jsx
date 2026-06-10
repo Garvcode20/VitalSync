@@ -64,23 +64,21 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-surface/40 backdrop-blur-xl border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.2)] relative z-50 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-[0_0_15px_rgba(255,45,120,0.5)]">V</div>
-              <span className="text-xl md:text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
-            </Link>
-            {user && (
-              <div className="hidden md:ml-6 md:flex md:space-x-8">
-                <Link to="/dashboard" className="border-transparent text-on-surface-variant hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">Dashboard</Link>
-                <Link to="/log" className="border-transparent text-on-surface-variant hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">Log Data</Link>
-                <Link to="/analytics" className="border-transparent text-on-surface-variant hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">Analytics</Link>
-                <Link to="/goals" className="border-transparent text-on-surface-variant hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">Goals</Link>
-              </div>
-            )}
+    <nav className="sticky top-0 w-full z-50 bg-surface/40 backdrop-blur-xl border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.2)] flex justify-between items-center px-6 py-4 max-w-full transition-colors">
+      <div className="flex items-center gap-8">
+        <Link to="/" className="flex-shrink-0 flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-[0_0_15px_rgba(255,45,120,0.5)]">V</div>
+          <span className="text-xl md:text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
+        </Link>
+        {user && (
+          <div className="hidden md:flex items-center gap-8 font-headline font-bold ml-4">
+            <Link to="/dashboard" className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim">Dashboard</Link>
+            <Link to="/log" className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim">Log Data</Link>
+            <Link to="/analytics" className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim">Analytics</Link>
+            <Link to="/goals" className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim">Goals</Link>
           </div>
+        )}
+      </div>
           
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
@@ -140,8 +138,7 @@ export default function Navbar() {
               {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
             </button>
           </div>
-        </div>
-      </div>
+
       
       {isOpen && (
         <div className="md:hidden border-t border-white/10 bg-surface-container">
