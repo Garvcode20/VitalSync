@@ -64,7 +64,8 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 w-full z-50 bg-surface/40 backdrop-blur-xl border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.2)] flex justify-between items-center px-6 py-4 max-w-full transition-colors">
+    <>
+      <nav className="fixed top-0 w-full z-50 bg-surface/40 backdrop-blur-xl border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.2)] flex justify-between items-center px-6 py-4 max-w-full transition-colors">
       <div className="flex items-center gap-8">
         <Link to="/" className="flex-shrink-0 flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-[0_0_15px_rgba(255,45,120,0.5)]">V</div>
@@ -164,5 +165,8 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+      {/* Spacer to prevent content from hiding under fixed navbar */}
+      <div className="h-[73px] w-full invisible"></div>
+    </>
   );
 }
