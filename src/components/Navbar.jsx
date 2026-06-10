@@ -58,7 +58,8 @@ export default function Navbar() {
     return formatDistanceToNow(timestamp.toDate(), { addSuffix: true });
   };
 
-  if (location.pathname === '/') {
+  const customNavRoutes = ['/', '/login', '/register', '/pricing', '/demo', '/about', '/privacy', '/terms', '/security'];
+  if (customNavRoutes.includes(location.pathname)) {
     return null;
   }
 
