@@ -29,8 +29,8 @@ export default function HydrationChart({ data }) {
     const miss = data.length - hit;
     
     const pieData = [
-      { label: 'Hit Goal', value: hit, color: '#3b82f6' },
-      { label: 'Missed Goal', value: miss, color: '#93c5fd' }
+      { label: 'Hit Goal', value: hit, color: '#00ffcc' },
+      { label: 'Missed Goal', value: miss, color: 'rgba(0, 255, 204, 0.2)' }
     ].filter(d => d.value > 0); // Remove empty slices
 
     const radius = Math.min(width, height) / 2;
@@ -53,7 +53,7 @@ export default function HydrationChart({ data }) {
     const tooltip = d3.select(wrapperRef.current)
       .append('div')
       .style('opacity', 0)
-      .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
+      .attr('class', 'd3-tooltip absolute bg-surface-container-high border border-secondary/30 text-on-surface p-2 rounded shadow-[0_0_10px_rgba(0,255,204,0.3)] text-xs font-label pointer-events-none z-10');
 
     const arcs = g.selectAll('.arc')
       .data(pie(pieData))
@@ -64,7 +64,7 @@ export default function HydrationChart({ data }) {
     arcs.append('path')
       .attr('d', arc)
       .attr('fill', d => d.data.color)
-      .attr('stroke', '#fff')
+      .attr('stroke', '#0f0f1a')
       .style('stroke-width', '2px')
       .on('mouseover', (event, d) => {
         d3.select(event.currentTarget).transition().duration(200).attr('d', hoverArc);
@@ -92,7 +92,8 @@ export default function HydrationChart({ data }) {
       .attr('text-anchor', 'middle')
       .attr('dy', '-0.5em')
       .attr('font-size', '12px')
-      .attr('fill', '#6b7280')
+      .attr('fill', '#a098b0')
+      .attr('font-family', 'Space Grotesk')
       .text('Goal');
       
     g.append('text')
@@ -100,8 +101,8 @@ export default function HydrationChart({ data }) {
       .attr('dy', '1em')
       .attr('font-size', '20px')
       .attr('font-weight', 'bold')
-      .attr('fill', '#1f2937')
-      .attr('class', 'dark:fill-white')
+      .attr('fill', '#ffffff')
+      .attr('font-family', 'Sora')
       .text(`${hit}/${data.length} days`);
 
     return () => {
@@ -110,9 +111,14 @@ export default function HydrationChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Hydration Goals Hit</h3>
-      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
+    <div className="glass-card p-6 rounded-2xl border-glow relative transition-colors group" ref={wrapperRef}>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-headline font-bold text-on-surface flex items-center gap-2">
+          <span className="w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#00ffcc]"></span>
+          Hydration Goals Hit
+        </h3>
+      </div>
+      <svg ref={svgRef}></svg>
     </div>
   );
 }

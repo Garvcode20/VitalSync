@@ -34,7 +34,8 @@ export default function HeartRateChart({ data }) {
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat('%b %d')))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     // Y axis (BPM)
     const y = d3.scaleLinear()
@@ -43,13 +44,14 @@ export default function HeartRateChart({ data }) {
 
     svg.append('g')
       .call(d3.axisLeft(y).ticks(5))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     // Tooltip
     const tooltip = d3.select(wrapperRef.current)
       .append('div')
       .style('opacity', 0)
-      .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
+      .attr('class', 'd3-tooltip absolute bg-surface-container-high border border-secondary/30 text-on-surface p-2 rounded shadow-[0_0_10px_rgba(0,255,204,0.3)] text-xs font-label pointer-events-none z-10');
 
     // Add normal range area
     svg.append('rect')
@@ -57,17 +59,16 @@ export default function HeartRateChart({ data }) {
       .attr('y', y(100))
       .attr('width', width)
       .attr('height', y(60) - y(100))
-      .attr('fill', '#d1fae5')
-      .attr('opacity', 0.5);
+      .attr('fill', 'rgba(0,255,204,0.1)');
 
     // Add lines for normal range
     svg.append('line')
       .attr('x1', 0).attr('y1', y(100)).attr('x2', width).attr('y2', y(100))
-      .style('stroke-dasharray', '3, 3').style('stroke', '#34d399');
+      .style('stroke-dasharray', '3, 3').style('stroke', 'rgba(0,255,204,0.5)');
       
     svg.append('line')
       .attr('x1', 0).attr('y1', y(60)).attr('x2', width).attr('y2', y(60))
-      .style('stroke-dasharray', '3, 3').style('stroke', '#34d399');
+      .style('stroke-dasharray', '3, 3').style('stroke', 'rgba(0,255,204,0.5)');
 
     // Line generator
     const line = d3.line()
@@ -79,8 +80,9 @@ export default function HeartRateChart({ data }) {
     const path = svg.append('path')
       .datum(parsedData)
       .attr('fill', 'none')
-      .attr('stroke', '#3b82f6')
+      .attr('stroke', '#00ffcc')
       .attr('stroke-width', 3)
+      .attr('filter', 'drop-shadow(0px 0px 5px rgba(0,255,204,0.5))')
       .attr('d', line);
 
     // Path animation
@@ -97,8 +99,9 @@ export default function HeartRateChart({ data }) {
       .data(parsedData)
       .enter()
       .append('circle')
-      .attr('fill', d => d.heartRate > 100 ? '#ef4444' : d.heartRate < 60 ? '#3b82f6' : '#10b981')
-      .attr('stroke', '#fff')
+      .attr('fill', d => d.heartRate > 100 ? '#ff2d78' : d.heartRate < 60 ? '#ffe04a' : '#00ffcc')
+      .attr('stroke', '#0f0f1a')
+      .attr('stroke-width', 2)
       .attr('cx', d => x(d.parsedDate))
       .attr('cy', d => y(d.heartRate))
       .attr('r', 0)
@@ -124,9 +127,14 @@ export default function HeartRateChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Heart Rate Trend</h3>
-      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
+    <div className="glass-card p-6 rounded-2xl border-glow relative transition-colors group" ref={wrapperRef}>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-headline font-bold text-on-surface flex items-center gap-2">
+          <span className="w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#00ffcc]"></span>
+          Heart Rate Trend
+        </h3>
+      </div>
+      <svg ref={svgRef}></svg>
     </div>
   );
 }

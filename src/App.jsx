@@ -12,6 +12,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Pricing from './pages/Pricing';
+import Demo from './pages/Demo';
 import About from './pages/About';
 import Security from './pages/Security';
 import Privacy from './pages/Privacy';
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="/about" element={<About />} />
           <Route path="/security" element={<Security />} />
           <Route path="/privacy" element={<Privacy />} />

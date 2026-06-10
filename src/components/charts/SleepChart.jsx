@@ -33,7 +33,8 @@ export default function SleepChart({ data }) {
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat('%b %d')))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     // Y axis (Hours)
     const y = d3.scaleLinear()
@@ -42,17 +43,18 @@ export default function SleepChart({ data }) {
 
     svg.append('g')
       .call(d3.axisLeft(y).ticks(5))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     const tooltip = d3.select(wrapperRef.current)
       .append('div')
       .style('opacity', 0)
-      .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
+      .attr('class', 'd3-tooltip absolute bg-surface-container-high border border-tertiary/30 text-on-surface p-2 rounded shadow-[0_0_10px_rgba(255,224,74,0.3)] text-xs font-label pointer-events-none z-10');
 
     // Goal line
     svg.append('line')
       .attr('x1', 0).attr('y1', y(8)).attr('x2', width).attr('y2', y(8))
-      .style('stroke-dasharray', '3, 3').style('stroke', '#818cf8');
+      .style('stroke-dasharray', '3, 3').style('stroke', '#ffe04a').style('opacity', 0.5);
 
     // Lollipop Sticks (Lines)
     svg.selectAll('myLines')
@@ -63,7 +65,7 @@ export default function SleepChart({ data }) {
       .attr('x2', d => x(d.parsedDate))
       .attr('y1', height)
       .attr('y2', height)
-      .attr('stroke', d => d.sleepHours < 7 ? '#fca5a5' : '#a5b4fc')
+      .attr('stroke', d => d.sleepHours < 7 ? '#ff2d78' : 'rgba(255,224,74,0.5)')
       .attr('stroke-width', 3)
       .transition()
       .duration(800)
@@ -74,8 +76,8 @@ export default function SleepChart({ data }) {
       .data(parsedData)
       .enter()
       .append('circle')
-      .attr('fill', d => d.sleepHours < 7 ? '#ef4444' : '#6366f1')
-      .attr('stroke', '#fff')
+      .attr('fill', d => d.sleepHours < 7 ? '#ff2d78' : '#ffe04a')
+      .attr('stroke', '#0f0f1a')
       .attr('cx', d => x(d.parsedDate))
       .attr('cy', height)
       .attr('r', 6)
@@ -100,9 +102,14 @@ export default function SleepChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Sleep Trend</h3>
-      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
+    <div className="glass-card p-6 rounded-2xl border-glow relative transition-colors group" ref={wrapperRef}>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-headline font-bold text-on-surface flex items-center gap-2">
+          <span className="w-2 h-2 bg-tertiary rounded-full shadow-[0_0_5px_#ffe04a]"></span>
+          Sleep Trend
+        </h3>
+      </div>
+      <svg ref={svgRef}></svg>
     </div>
   );
 }

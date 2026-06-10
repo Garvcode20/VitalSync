@@ -36,7 +36,8 @@ export default function StepsChart({ data }) {
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x).tickFormat(d => format(parseISO(d), 'MMM dd')))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     // Y axis (steps)
     const y = d3.scaleLinear()
@@ -45,18 +46,19 @@ export default function StepsChart({ data }) {
 
     svg.append('g')
       .call(d3.axisLeft(y).ticks(5))
-      .attr('color', '#9ca3af');
+      .attr('color', '#a098b0')
+      .selectAll("text").style("font-family", "Space Grotesk");
 
     // Tooltip
     const tooltip = d3.select(wrapperRef.current)
       .append('div')
       .style('opacity', 0)
-      .attr('class', 'd3-tooltip absolute bg-gray-800 text-white p-2 rounded text-xs pointer-events-none z-10');
+      .attr('class', 'd3-tooltip absolute bg-surface-container-high border border-primary/30 text-on-surface p-2 rounded shadow-[0_0_10px_rgba(255,45,120,0.3)] text-xs font-label pointer-events-none z-10');
 
     // Goal line
     svg.append('line')
       .attr('x1', 0).attr('y1', y(8000)).attr('x2', width).attr('y2', y(8000))
-      .style('stroke-dasharray', '3, 3').style('stroke', '#10b981');
+      .style('stroke-dasharray', '3, 3').style('stroke', '#ff2d78').style('opacity', 0.5);
 
     // Bars
     svg.selectAll('myRect')
@@ -68,7 +70,7 @@ export default function StepsChart({ data }) {
       .attr('width', x.bandwidth())
       .attr('height', 0)
       .attr('rx', 4) // Rounded tops
-      .attr('fill', d => d.steps >= 8000 ? '#10b981' : d.steps >= 5000 ? '#fbbf24' : '#ef4444')
+      .attr('fill', d => d.steps >= 8000 ? '#ff2d78' : d.steps >= 5000 ? '#ff80aa' : '#3d0020')
       .on('mouseover', (event, d) => {
         d3.select(event.currentTarget).attr('opacity', 0.8);
         tooltip.transition().duration(200).style('opacity', 1);
@@ -91,9 +93,14 @@ export default function StepsChart({ data }) {
   }, [data]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 relative transition-colors" ref={wrapperRef}>
-      <h3 className="text-lg font-bold text-gray-800 dark:text-slate-200 mb-2">Steps Trend</h3>
-      <svg ref={svgRef} className="text-slate-500 dark:text-slate-400"></svg>
+    <div className="glass-card p-6 rounded-2xl border-glow relative transition-colors group" ref={wrapperRef}>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-headline font-bold text-on-surface flex items-center gap-2">
+          <span className="w-2 h-2 bg-primary rounded-full shadow-[0_0_5px_#ff2d78]"></span>
+          Steps Trend
+        </h3>
+      </div>
+      <svg ref={svgRef}></svg>
     </div>
   );
 }
