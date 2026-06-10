@@ -120,10 +120,11 @@ export default function Pricing() {
             <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-lg shadow-primary/50">V</div>
             <div className="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-primary">VitalSync</div>
           </Link>
-          <div className="hidden md:flex gap-6">
-            <Link to="/dashboard" className="font-label text-on-surface-variant hover:text-primary hover:[text-shadow:0_0_8px_currentColor] transition-all duration-300">Dashboard</Link>
-            <Link to="/demo" className="font-label text-on-surface-variant hover:text-primary hover:[text-shadow:0_0_8px_currentColor] transition-all duration-300">Demo</Link>
-            <Link to="/pricing" className="font-label text-primary border-b-2 border-primary pb-1 transition-all duration-300">Neural Pricing</Link>
+          <div className="hidden md:flex items-center gap-8 font-headline font-bold">
+            <Link className="font-label text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/demo">Demo</Link>
+            <Link className="font-label text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/#features">Features</Link>
+            <Link className="font-label text-primary border-b-2 border-primary pb-1 transition-all duration-300 drop-shadow-[0_0_5px_rgba(255,45,120,0.6)]" to="/pricing">Pricing</Link>
+            <Link className="font-label text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/about">About Us</Link>
           </div>
           <div className="flex items-center gap-4">
             <Link to="/login" className="hidden sm:block text-on-surface-variant font-label hover:text-primary transition-colors">Login</Link>
