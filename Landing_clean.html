@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VitalSync - Your Health, Synchronized</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Sora:wght@400;600;700;800&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0a0a12",
+                        "surface-container": "#141422",
+                        "on-secondary-container": "#c0fff4",
+                        "tertiary": "#ffe04a",
+                        "primary": "#ff2d78",
+                        "surface-variant": "#1e1e30",
+                        "on-primary-fixed": "#3d0020",
+                        "on-error": "#1a0000",
+                        "on-secondary": "#001a1a",
+                        "secondary-fixed": "#c0fff4",
+                        "inverse-on-surface": "#0a0a12",
+                        "primary-container": "#b3004e",
+                        "surface-tint": "#ff2d78",
+                        "primary-fixed": "#ffe0ec",
+                        "on-surface": "#e8e0f0",
+                        "tertiary-fixed": "#fff0c0",
+                        "surface-container-high": "#1e1e30",
+                        "outline-variant": "#302840",
+                        "on-primary-container": "#ffe0ec",
+                        "on-background": "#e8e0f0",
+                        "tertiary-fixed-dim": "#ffe04a",
+                        "on-tertiary-fixed": "#1a1000",
+                        "primary-fixed-dim": "#ff80aa",
+                        "on-primary": "#1a0010",
+                        "surface-bright": "#1a1a2e",
+                        "surface-container-low": "#111118",
+                        "surface-container-highest": "#28283e",
+                        "surface-dim": "#0f0f1a",
+                        "secondary-fixed-dim": "#00e6b8",
+                        "on-tertiary": "#1a1000",
+                        "secondary-container": "#004d3d",
+                        "outline": "#5a5068",
+                        "surface": "#0f0f1a",
+                        "background": "#0a0a12",
+                        "on-secondary-fixed-variant": "#004d4d",
+                        "inverse-primary": "#8c0038",
+                        "on-tertiary-fixed-variant": "#665200",
+                        "on-primary-fixed-variant": "#8c0038",
+                        "on-secondary-fixed": "#001a1a",
+                        "secondary": "#00ffcc",
+                        "on-error-container": "#ffa0a0",
+                        "on-surface-variant": "#a098b0",
+                        "tertiary-container": "#665200",
+                        "on-tertiary-container": "#fff0c0",
+                        "error-container": "#3d0f0f",
+                        "inverse-surface": "#e8e0f0",
+                        "error": "#ff4444"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Sora", "sans-serif"],
+                        "display": ["Sora", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Cyberpunk Neon Glow Effects */
+        .neon-text-glow {
+            text-shadow: 0 0 8px currentColor;
+        }
+        .neon-box-glow {
+            box-shadow: 0 0 16px rgba(255, 45, 120, 0.4);
+        }
+        .neon-border-glow {
+            border: 1px solid rgba(255, 45, 120, 0.5);
+            box-shadow: inset 0 0 12px rgba(255, 45, 120, 0.1);
+        }
+        .neon-border-glow:hover {
+            box-shadow: inset 0 0 16px rgba(255, 45, 120, 0.2), 0 0 20px rgba(255, 45, 120, 0.5);
+            border-color: rgba(255, 45, 120, 0.8);
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Hide scrollbar for horizontal scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Shader Container */
+        #shader-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden min-h-screen flex flex-col">
+<!-- WebGL Shader Background -->
+<div id="shader-bg">
+<!-- STITCH_SHADER_START:ANIMATION_46 class="" -->
+<div class="" style="display:block;width:100%;height:100%;min-height:200px;">
+<canvas id="shader-canvas-ANIMATION_46" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_46');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `
+precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+// Organic pulse function
+float pulse(float time, float offset) {
+    return 0.5 + 0.5 * sin(time * 0.8 + offset);
+}
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2 p = uv;
+    p.x *= aspect;
+
+    // Base colors - deepening the "Health" vibe
+    vec3 color_deep = vec3(0.02, 0.0, 0.03); // Deep night
+    vec3 color_health = vec3(1.0, 0.17, 0.47); // Crimson pulse
+    vec3 color_cyan = vec3(0.17, 0.83, 0.74); // Biometric teal
+
+    // Create organic "Heartbeat" waves
+    float waves = 0.0;
+    for(float i = 1.0; i < 4.0; i++) {
+        float speed = i * 0.3;
+        float freq = i * 2.5;
+        waves += sin(p.x * freq + u_time * speed + p.y * 2.0) * 0.05;
+    }
+    
+    // Pulse centers (Simulating biometric sensors or heartbeat nodes)
+    vec2 center1 = vec2(0.5 * aspect + sin(u_time * 0.4) * 0.2, 0.5 + cos(u_time * 0.5) * 0.1);
+    vec2 center2 = vec2(0.8 * aspect + cos(u_time * 0.3) * 0.1, 0.2 + sin(u_time * 0.4) * 0.1);
+    
+    float dist1 = length(p - center1);
+    float dist2 = length(p - center2);
+    
+    float glow1 = 0.08 / (dist1 + 0.15 + waves);
+    float glow2 = 0.04 / (dist2 + 0.1 + waves);
+    
+    // Subtle scanning line (Data flow)
+    float scan = smoothstep(0.98, 1.0, sin(uv.y * 10.0 - u_time * 1.5));
+    
+    // Background "Pulse" grid
+    vec2 grid_uv = uv * 25.0;
+    float grid = (sin(grid_uv.x) * 0.5 + 0.5) * (cos(grid_uv.y) * 0.5 + 0.5);
+    grid = pow(grid, 40.0) * pulse(u_time, 0.0);
+
+    vec3 final_color = color_deep;
+    final_color += color_health * glow1 * pulse(u_time, 0.0);
+    final_color += color_cyan * glow2 * pulse(u_time, 1.5);
+    final_color += color_health * grid * 0.2;
+    final_color += color_cyan * scan * 0.02;
+
+    gl_FragColor = vec4(final_color, 1.0);
+}
+`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_46 -->
+</div>
+<!-- Main Content Wrapper with high z-index -->
+<div class="relative z-10 flex flex-col min-h-screen w-full">
+<!-- TopNavBar Shared Component -->
+<nav class="fixed top-0 w-full z-50 bg-surface/40 backdrop-blur-xl border-b border-primary/30 shadow-[0_0_20px_rgba(255,45,120,0.2)] flex justify-between items-center px-6 py-4 max-w-full">
+<!-- Brand -->
+<div class="flex items-center gap-3">
+<img alt="VitalSync Logo" class="h-8 w-auto" src="BASE64_IMAGE"/>
+<span class="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
+</div>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex items-center gap-8 font-headline font-bold">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" href="#">Demo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" href="#features">Features</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" href="{{DATA:SCREEN:SCREEN_29}}">Pricing</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" href="#">About Us</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4 text-on-surface">
+<button class="hover:text-primary transition-colors duration-300 active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-primary transition-colors duration-300 active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-variant border border-primary/30 overflow-hidden flex items-center justify-center">
+<!-- User Avatar Placeholder -->
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-24 relative">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden px-6 pt-24 pb-32 bg-transparent">
+<div class="scanlines"></div>
+<div class="relative z-20 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8 text-left">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/30 border border-primary/30 text-secondary font-label text-sm tracking-widest uppercase backdrop-blur-md w-fit">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#00ffcc]"></span>
+                            VitalSync v2.0 is now live
+                        </div>
+<h1 class="text-6xl md:text-7xl font-display font-extrabold tracking-tight text-on-surface leading-tight">
+                            Your Wellness, <br/><span class="text-secondary neon-text-glow">Connected.</span>
+</h1>
+<p class="text-lg md:text-xl text-on-surface-variant font-body max-w-xl">
+                            Track your health metrics, visualize trends, and crush your wellness goals with the most beautiful dashboard ever created.
+                        </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-secondary text-on-secondary font-headline font-bold rounded-full hover:opacity-80 transition-all duration-300 shadow-[0_0_16px_#00ffcc] active:scale-95 flex items-center gap-3">
+                                Get Started for Free<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-transparent text-on-surface font-headline font-bold rounded-full border border-outline-variant hover:bg-surface-variant transition-all duration-300 active:scale-95">
+                                View Demo
+                            </button>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-background flex items-center justify-center text-xs font-bold">J</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-background flex items-center justify-center text-xs font-bold">M</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-low border-2 border-background flex items-center justify-center text-xs font-bold">K</div>
+</div>
+<p class="text-sm text-on-surface-variant font-label">Joined by 10,000+ health enthusiasts</p>
+</div>
+</div>
+<div class="relative flex justify-center lg:justify-end">
+<div class="bg-surface-container/60 backdrop-blur-2xl rounded-3xl p-8 border border-primary/20 shadow-2xl w-full max-w-xl neon-border-glow">
+<div class="flex items-center gap-2 mb-8">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+</div>
+<div class="ml-auto w-24 h-4 bg-surface-variant rounded-full opacity-40"></div>
+</div>
+<div class="grid grid-cols-2 gap-6 mb-6">
+<div class="bg-surface-variant/30 rounded-2xl p-6 border border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant">Heart Rate</span>
+<span class="text-xl font-bold">72 bpm</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-variant/30 rounded-2xl p-6 border border-outline-variant">
+<div class="w-12 h-3 bg-surface-variant rounded-full mb-4"></div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">8,432</span>
+<span class="text-secondary text-xs font-bold mb-1">+12%</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-variant/30 rounded-2xl p-6 border border-outline-variant mb-6">
+<div class="w-12 h-3 bg-surface-variant rounded-full mb-4"></div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">7.2h</span>
+<span class="text-secondary text-xs font-bold mb-1">+5%</span>
+</div>
+</div>
+<div class="bg-surface-variant/30 rounded-2xl p-6 border border-outline-variant">
+<div class="flex items-end gap-2 h-32">
+<div class="flex-grow bg-secondary/40 rounded-t-sm h-1/3"></div>
+<div class="flex-grow bg-secondary/60 rounded-t-sm h-1/2"></div>
+<div class="flex-grow bg-secondary/40 rounded-t-sm h-1/4"></div>
+<div class="flex-grow bg-secondary rounded-t-sm h-3/4 shadow-[0_0_8px_#00ffcc]"></div>
+<div class="flex-grow bg-secondary/60 rounded-t-sm h-2/3"></div>
+<div class="flex-grow bg-secondary/80 rounded-t-sm h-4/5"></div>
+<div class="flex-grow bg-secondary rounded-t-sm h-full shadow-[0_0_8px_#00ffcc]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Steps Section -->
+<section class="relative z-20 py-24 px-6 max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-4xl md:text-5xl font-display font-extrabold text-on-surface tracking-tight mb-4">Get started in <span class="text-secondary neon-text-glow">3 simple steps</span></h2>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-8 relative">
+<!-- Step 1 -->
+<div class="flex-1 flex flex-col items-center text-center group">
+<div class="w-20 h-20 rounded-2xl bg-surface-container-high/40 backdrop-blur-md flex items-center justify-center mb-6 border border-outline-variant shadow-2xl transition-all duration-300 group-hover:scale-110">
+<span class="text-3xl font-display font-bold text-on-surface">1</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Create Account</h3>
+<p class="text-sm text-on-surface-variant font-body max-w-[200px]">Sign up for free in less than 30 seconds.</p>
+</div>
+<!-- Arrow 1 -->
+<div class="hidden md:block text-on-surface-variant opacity-40">
+<span class="material-symbols-outlined text-4xl">arrow_forward</span>
+</div>
+<!-- Step 2 -->
+<div class="flex-1 flex flex-col items-center text-center group">
+<div class="w-20 h-20 rounded-2xl bg-surface-container-high/40 backdrop-blur-md flex items-center justify-center mb-6 border border-outline-variant shadow-2xl transition-all duration-300 group-hover:scale-110">
+<span class="text-3xl font-display font-bold text-on-surface">2</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Log Data</h3>
+<p class="text-sm text-on-surface-variant font-body max-w-[200px]">Enter your daily health metrics easily.</p>
+</div>
+<!-- Arrow 2 -->
+<div class="hidden md:block text-on-surface-variant opacity-40">
+<span class="material-symbols-outlined text-4xl">arrow_forward</span>
+</div>
+<!-- Step 3 -->
+<div class="flex-1 flex flex-col items-center text-center group">
+<div class="w-20 h-20 rounded-2xl bg-secondary flex items-center justify-center mb-6 shadow-[0_0_20px_#00ffcc] transition-all duration-300 group-hover:scale-110">
+<span class="text-3xl font-display font-bold text-on-secondary">3</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Improve</h3>
+<p class="text-sm text-on-surface-variant font-body max-w-[200px]">Watch your wellness trends grow.</p>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="relative z-20 py-24 px-6 max-w-7xl mx-auto border-t border-primary/20">
+<div class="text-center mb-16">
+<span class="text-secondary font-label text-xs font-bold tracking-widest uppercase neon-text-glow mb-4 block">POWERFUL FEATURES</span>
+<h2 class="text-4xl md:text-5xl font-display font-extrabold text-on-surface tracking-tight mb-4">Everything you need to thrive.</h2>
+<p class="text-on-surface-variant font-body max-w-2xl mx-auto">No more messy spreadsheets or disjointed apps. We brought all your wellness data under one roof.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Health Tracking -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-3xl p-8 neon-border-glow flex flex-col gap-6 transition-all duration-300 hover:-translate-y-2">
+<div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center border border-secondary/30 shadow-[0_0_8px_#00ffcc]">
+<span class="material-symbols-outlined text-secondary">pulse_alert</span>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Health Tracking</h3>
+<p class="text-sm text-on-surface-variant font-body leading-relaxed">Log steps, heart rate, sleep, hydration and weight daily with our stunning interface.</p>
+</div>
+</div>
+<!-- Visual Insights -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-3xl p-8 neon-border-glow flex flex-col gap-6 transition-all duration-300 hover:-translate-y-2">
+<div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center border border-secondary/30 shadow-[0_0_8px_#00ffcc]">
+<span class="material-symbols-outlined text-secondary">pie_chart</span>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Visual Insights</h3>
+<p class="text-sm text-on-surface-variant font-body leading-relaxed">Interactive, pixel-perfect D3.js charts help you understand your patterns over time.</p>
+</div>
+</div>
+<!-- Goal Setting -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-3xl p-8 neon-border-glow flex flex-col gap-6 transition-all duration-300 hover:-translate-y-2">
+<div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center border border-secondary/30 shadow-[0_0_8px_#00ffcc]">
+<span class="material-symbols-outlined text-secondary">track_changes</span>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Goal Setting</h3>
+<p class="text-sm text-on-surface-variant font-body leading-relaxed">Set custom targets, track daily progress, and get celebrated for your wellness wins.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Health Widgets (Bento Grid) -->
+<section class="relative z-20 -mt-24 px-6 pb-24 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Heart Rate Widget -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex items-center justify-between">
+<h3 class="font-label text-sm uppercase tracking-widest text-on-surface-variant">Heart Rate</h3>
+<span class="material-symbols-outlined text-primary neon-text-glow animate-pulse">monitor_heart</span>
+</div>
+<div class="mt-auto flex items-end gap-3">
+<span class="font-headline font-bold text-5xl text-on-surface group-hover:text-primary transition-colors neon-text-glow">108</span>
+<span class="font-label text-on-surface-variant pb-1">BPM</span>
+</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-2">
+<div class="h-full bg-primary w-3/4 shadow-[0_0_8px_#ff2d78]"></div>
+</div>
+<p class="text-xs font-label text-secondary mt-1 tracking-wide text-right">ELEVATED</p>
+</div>
+<!-- Steps Widget -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden md:translate-y-8">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-secondary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+</div>
+<div class="flex items-center justify-between">
+<h3 class="font-label text-sm uppercase tracking-widest text-on-surface-variant">Kinetic Energy</h3>
+<span class="material-symbols-outlined text-secondary" style="text-shadow: 0 0 8px #00ffcc;">speed</span>
+</div>
+<div class="mt-auto flex items-end gap-3">
+<span class="font-headline font-bold text-5xl text-on-surface group-hover:text-secondary transition-colors" style="text-shadow: 0 0 8px currentColor;">8,432</span>
+<span class="font-label text-on-surface-variant pb-1">STEPS</span>
+</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-2">
+<div class="h-full bg-secondary w-2/3 shadow-[0_0_8px_#00ffcc]"></div>
+</div>
+<p class="text-xs font-label text-secondary mt-1 tracking-wide text-right">OPTIMAL</p>
+</div>
+<!-- Sleep Widget -->
+<div class="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-tertiary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+</div>
+<div class="flex items-center justify-between">
+<h3 class="font-label text-sm uppercase tracking-widest text-on-surface-variant">Regeneration</h3>
+<span class="material-symbols-outlined text-tertiary" style="text-shadow: 0 0 8px #ffe04a;">bedtime</span>
+</div>
+<div class="mt-auto flex items-end gap-3">
+<span class="font-headline font-bold text-5xl text-on-surface group-hover:text-tertiary transition-colors" style="text-shadow: 0 0 8px currentColor;">6<span class="text-3xl text-on-surface-variant">h</span> 45<span class="text-3xl text-on-surface-variant">m</span></span>
+</div>
+<div class="w-full flex gap-1 h-8 mt-2">
+<div class="h-full bg-surface-variant w-1/4 rounded-l-sm"></div>
+<div class="h-full bg-tertiary/20 w-1/2 flex items-center justify-center">
+<div class="h-full bg-tertiary w-full opacity-80 shadow-[0_0_8px_#ffe04a]"></div>
+</div>
+<div class="h-full bg-surface-variant w-1/4 rounded-r-sm"></div>
+</div>
+<div class="flex justify-between text-xs font-label text-on-surface-variant mt-1">
+<span class="">Light</span>
+<span class="text-tertiary">Deep Cycle</span>
+<span class="">REM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Modules Section -->
+<section class="relative z-20 px-6 py-24 max-w-7xl mx-auto border-t border-primary/20" id="features">
+<div class="text-center mb-16">
+<h2 class="text-4xl md:text-5xl font-display font-extrabold text-on-surface tracking-tight mb-4">Core <span class="text-primary neon-text-glow">Modules</span></h2>
+<p class="text-on-surface-variant font-body max-w-2xl mx-auto">Advanced systems designed for complete biological synchronization.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Feature 1 -->
+<div class="bg-surface-container/30 backdrop-blur-md rounded-xl p-8 neon-border-glow hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6 border border-primary/30 neon-box-glow">
+<span class="material-symbols-outlined text-primary">sensors</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Real-time Biometrics</h3>
+<p class="text-sm text-on-surface-variant font-body">Continuous monitoring of your core vitals with zero latency data transmission.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface-container/30 backdrop-blur-md rounded-xl p-8 neon-border-glow hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6 border border-primary/30 neon-box-glow">
+<span class="material-symbols-outlined text-primary">hub</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Neural Link Integration</h3>
+<p class="text-sm text-on-surface-variant font-body">Direct cerebral interface for unparalleled synchronization and response times.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container/30 backdrop-blur-md rounded-xl p-8 neon-border-glow hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6 border border-primary/30 neon-box-glow">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">AI Health Insights</h3>
+<p class="text-sm text-on-surface-variant font-body">Predictive algorithms analyze your data to forecast and optimize physical performance.</p>
+</div>
+<!-- Feature 4 -->
+<div class="bg-surface-container/30 backdrop-blur-md rounded-xl p-8 neon-border-glow hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6 border border-primary/30 neon-box-glow">
+<span class="material-symbols-outlined text-primary">lock</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-3">Encrypted Data Vault</h3>
+<p class="text-sm text-on-surface-variant font-body">Military-grade quantum encryption ensuring your biological data remains yours alone.</p>
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<section class="relative z-20 px-6 py-24 max-w-[100vw] overflow-hidden border-t border-primary/20 bg-surface-container-low/30 backdrop-blur-sm">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div class="flex flex-col gap-2">
+<span class="text-secondary font-label text-xs font-bold tracking-widest uppercase neon-text-glow">WALL OF LOVE</span>
+<h2 class="text-4xl md:text-6xl font-display font-extrabold text-on-surface tracking-tight">
+                                Don't just take our word for it.
+                            </h2>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-sm font-label text-on-surface-variant uppercase tracking-widest">Subject</span>
+<span class="text-sm font-label text-primary font-bold uppercase tracking-widest neon-text-glow">Logs</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors border border-outline-variant" id="prevReviewBtn">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-colors border border-outline-variant" id="nextReviewBtn">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 snap-x snap-mandatory scroll-smooth" id="reviewsContainer">
+<!-- Review 1 -->
+<div class="min-w-[320px] md:min-w-[400px] snap-center bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-primary/50 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Alex Mercer</h4>
+<p class="text-xs font-label text-primary">@amercer_01</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm italic">"The neural synchronization is flawless. My recovery times have dropped by 30% since integration. Pure optimization."</p>
+<div class="flex text-primary mt-auto text-sm">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="min-w-[320px] md:min-w-[400px] snap-center bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-primary/50 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Sarah Chen</h4>
+<p class="text-xs font-label text-primary">@chen_sys</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm italic">"Finally, a UI that matches the tech. The biometric feedback loop feels intuitive, almost like a sixth sense."</p>
+<div class="flex text-primary mt-auto text-sm">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="min-w-[320px] md:min-w-[400px] snap-center bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-primary/50 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Marcus Vance</h4>
+<p class="text-xs font-label text-primary">@vance_kinetic</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm italic">"The real-time insights during hyper-load training are unmatched. This isn't just a tracker, it's an evolutionary tool."</p>
+<div class="flex text-primary mt-auto text-sm">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Review 4 -->
+<div class="min-w-[320px] md:min-w-[400px] snap-center bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-primary/50 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Elena Rostova</h4>
+<p class="text-xs font-label text-primary">@elena_cyber</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm italic">"Encrypted vault gives me peace of mind. Knowing my biological signature is secure while still getting deep analytics is incredible."</p>
+<div class="flex text-primary mt-auto text-sm">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+</div>
+<!-- Review 5 -->
+<div class="min-w-[320px] md:min-w-[400px] snap-center bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-primary/50 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface">Jared Kim</h4>
+<p class="text-xs font-label text-primary">@jkim_sync</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm italic">"The aesthetics alone are mind-blowing, but the predictive AI health insights actually saved me from a major burnout phase."</p>
+<div class="flex text-primary mt-auto text-sm">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-surface-container-lowest/40 backdrop-blur-md w-full py-12 px-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+<!-- Brand -->
+<div class="text-lg font-display font-bold text-primary neon-text-glow">VitalSync</div>
+<!-- Copyright -->
+<div class="font-label text-xs uppercase tracking-widest text-on-surface-variant text-center md:text-left">
+                © 2024 VitalSync. Neural Link Established.
+            </div>
+<!-- Links -->
+<div class="flex flex-wrap justify-center gap-6 font-label text-xs uppercase tracking-widest">
+<a class="text-on-surface-variant hover:text-secondary-fixed transition-colors hover:opacity-80" href="#">Privacy Protocol</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed transition-colors hover:opacity-80" href="#">Service Terms</a>
+<a class="text-on-surface-variant hover:text-secondary-fixed transition-colors hover:opacity-80" href="#">Data Encryption</a>
+</div>
+</footer>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const prevBtn = document.getElementById('prevReviewBtn');
+            const nextBtn = document.getElementById('nextReviewBtn');
+            const container = document.getElementById('reviewsContainer');
+
+            if (prevBtn && nextBtn && container) {
+                const getScrollAmount = () => {
+                    const firstCard = container.firstElementChild;
+                    if (firstCard) {
+                        const width = firstCard.offsetWidth;
+                        // Gap is 1.5rem (24px) from gap-6
+                        return width + 24; 
+                    }
+                    return 300;
+                };
+
+                prevBtn.addEventListener('click', () => {
+                    container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body></html>

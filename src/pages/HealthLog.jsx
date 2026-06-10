@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getHealthLogs, deleteHealthLog, getHealthLogByDate, addHealthLog, updateHealthLog, addNotification } from '../api/firestore';
+import { connectHeartRateMonitor, disconnectDevice } from '../utils/bluetooth';
 
 export default function HealthLog() {
   const { user } = useAuth();
@@ -20,6 +21,43 @@ export default function HealthLog() {
   const [existingLogId, setExistingLogId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+
+  // Bluetooth State
+  const [btDevice, setBtDevice] = useState(null);
+  const [btStatus, setBtStatus] = useState('disconnected'); // disconnected, scanning, connected
+
+  const handleBluetoothSync = async () => {
+    setBtStatus('scanning');
+    setSaveMessage('');
+    try {
+      const device = await connectHeartRateMonitor((bpm) => {
+        setFormData(prev => ({ ...prev, heartRate: bpm.toString() }));
+      }, () => {
+        setBtStatus('disconnected');
+        setBtDevice(null);
+      });
+      setBtDevice(device);
+      setBtStatus('connected');
+    } catch (error) {
+      setBtStatus('disconnected');
+      setSaveMessage(error.message || 'Bluetooth sync failed');
+    }
+  };
+
+  const handleDisconnectBluetooth = () => {
+    disconnectDevice(btDevice);
+    setBtDevice(null);
+    setBtStatus('disconnected');
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (btDevice) {
+        disconnectDevice(btDevice);
+      }
+    };
+  }, [btDevice]);
 
   const fetchLogs = useCallback(async () => {
     if (!user) return;
@@ -295,15 +333,38 @@ export default function HealthLog() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="font-label text-xs tracking-widest uppercase text-on-surface-variant">Heart Rate (bpm)</label>
-                  <input 
-                    name="heartRate"
-                    type="number" 
-                    value={formData.heartRate}
-                    onChange={handleChange}
-                    placeholder="e.g. 72" 
-                    className="w-full bg-surface-container-lowest border border-outline/30 rounded-lg focus:border-primary focus:shadow-[0_0_12px_rgba(255,45,120,0.4)] transition-all duration-300 outline-none py-3 px-4 font-body text-on-surface" 
-                  />
+                  <div className="flex justify-between items-end">
+                    <label className="font-label text-xs tracking-widest uppercase text-on-surface-variant">Heart Rate (bpm)</label>
+                    {btStatus === 'connected' ? (
+                      <button type="button" onClick={handleDisconnectBluetooth} className="text-xs font-label text-primary hover:text-primary-container transition-colors flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">bluetooth_connected</span> Disconnect
+                      </button>
+                    ) : btStatus === 'scanning' ? (
+                      <span className="text-xs font-label text-tertiary animate-pulse flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">bluetooth_searching</span> Scanning...
+                      </span>
+                    ) : navigator.bluetooth && (
+                      <button type="button" onClick={handleBluetoothSync} className="text-xs font-label text-secondary hover:text-secondary-fixed transition-colors flex items-center gap-1" title="Sync live heart rate from a BLE device">
+                        <span className="material-symbols-outlined text-[14px]">bluetooth</span> Sync Device
+                      </button>
+                    )}
+                  </div>
+                  <div className="relative">
+                    <input 
+                      name="heartRate"
+                      type="number" 
+                      value={formData.heartRate}
+                      onChange={handleChange}
+                      placeholder="e.g. 72" 
+                      className={`w-full bg-surface-container-lowest border rounded-lg focus:shadow-[0_0_12px_rgba(255,45,120,0.4)] transition-all duration-300 outline-none py-3 px-4 font-body text-on-surface ${btStatus === 'connected' ? 'border-secondary focus:border-secondary shadow-[0_0_10px_rgba(0,255,204,0.2)] text-secondary font-bold' : 'border-outline/30 focus:border-primary'}`} 
+                    />
+                    {btStatus === 'connected' && (
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="font-label text-xs tracking-widest uppercase text-on-surface-variant">Sleep (Hours)</label>
