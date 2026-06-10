@@ -356,7 +356,7 @@ void main() {
 {/* Heart Rate Widget */}
 <div className="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span className="material-symbols-outlined text-6xl text-primary" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>favorite</span>
+<span className="material-symbols-outlined text-6xl text-primary" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>favorite</span>
 </div>
 <div className="flex items-center justify-between">
 <h3 className="font-label text-sm uppercase tracking-widest text-on-surface-variant">Heart Rate</h3>
@@ -374,7 +374,7 @@ void main() {
 {/* Steps Widget */}
 <div className="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden md:translate-y-8">
 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span className="material-symbols-outlined text-6xl text-secondary" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>directions_run</span>
+<span className="material-symbols-outlined text-6xl text-secondary" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>directions_run</span>
 </div>
 <div className="flex items-center justify-between">
 <h3 className="font-label text-sm uppercase tracking-widest text-on-surface-variant">Kinetic Energy</h3>
@@ -392,7 +392,7 @@ void main() {
 {/* Sleep Widget */}
 <div className="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span className="material-symbols-outlined text-6xl text-tertiary" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>bedtime</span>
+<span className="material-symbols-outlined text-6xl text-tertiary" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>bedtime</span>
 </div>
 <div className="flex items-center justify-between">
 <h3 className="font-label text-sm uppercase tracking-widest text-on-surface-variant">Regeneration</h3>
@@ -494,11 +494,11 @@ void main() {
 </div>
 <p className="text-on-surface-variant text-sm italic">"The neural synchronization is flawless. My recovery times have dropped by 30% since integration. Pure optimization."</p>
 <div className="flex text-primary mt-auto text-sm">
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
 </div>
 </div>
 {/* Review 2 */}
@@ -514,11 +514,11 @@ void main() {
 </div>
 <p className="text-on-surface-variant text-sm italic">"Finally, a UI that matches the tech. The biometric feedback loop feels intuitive, almost like a sixth sense."</p>
 <div className="flex text-primary mt-auto text-sm">
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
 </div>
 </div>
 {/* Review 3 */}
@@ -534,11 +534,11 @@ void main() {
 </div>
 <p className="text-on-surface-variant text-sm italic">"The real-time insights during hyper-load training are unmatched. This isn't just a tracker, it's an evolutionary tool."</p>
 <div className="flex text-primary mt-auto text-sm">
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
 </div>
 </div>
 {/* Review 4 */}
@@ -554,11 +554,11 @@ void main() {
 </div>
 <p className="text-on-surface-variant text-sm italic">"Encrypted vault gives me peace of mind. Knowing my biological signature is secure while still getting deep analytics is incredible."</p>
 <div className="flex text-primary mt-auto text-sm">
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star_half</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star_half</span>
 </div>
 </div>
 {/* Review 5 */}
@@ -574,11 +574,11 @@ void main() {
 </div>
 <p className="text-on-surface-variant text-sm italic">"The aesthetics alone are mind-blowing, but the predictive AI health insights actually saved me from a major burnout phase."</p>
 <div className="flex text-primary mt-auto text-sm">
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
-<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': ''FILL' 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
+<span className="material-symbols-outlined" dataWeight="fill" style={{'fontVariationSettings': '"FILL" 1'}}>star</span>
 </div>
 </div>
 </div>
