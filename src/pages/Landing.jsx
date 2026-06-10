@@ -165,23 +165,15 @@ void main() {
 </div>
 {/* Navigation Links (Web) */}
 <div className="hidden md:flex items-center gap-8 font-headline font-bold">
-<Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="#">Demo</Link>
-<Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="#features">Features</Link>
+<Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/demo">Demo</Link>
+<a className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" href="#features">Features</a>
 <Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/pricing">Pricing</Link>
-<Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="#">About Us</Link>
+<Link className="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 hover:text-primary-fixed-dim" to="/about">About Us</Link>
 </div>
 {/* Trailing Actions */}
 <div className="flex items-center gap-4 text-on-surface">
-<button className="hover:text-primary transition-colors duration-300 active:scale-95 flex items-center justify-center">
-<span className="material-symbols-outlined">notifications</span>
-</button>
-<button className="hover:text-primary transition-colors duration-300 active:scale-95 flex items-center justify-center">
-<span className="material-symbols-outlined">settings</span>
-</button>
-<div className="h-8 w-8 rounded-full bg-surface-variant border border-primary/30 overflow-hidden flex items-center justify-center">
-{/* User Avatar Placeholder */}
-<span className="material-symbols-outlined text-on-surface-variant text-sm">person</span>
-</div>
+<Link to="/login" className="hidden sm:block text-on-surface-variant font-label hover:text-primary transition-colors">Login</Link>
+<Link to="/dashboard" className="bg-primary/10 border border-primary text-primary px-5 py-2 font-headline font-bold text-sm tracking-tight hover:bg-primary hover:text-on-primary transition-all duration-300 active:scale-95 shadow-[0_0_16px_rgba(255,45,120,0.2)]">Sync Now</Link>
 </div>
 </nav>
 {/* Main Content */}
@@ -351,7 +343,7 @@ void main() {
 </div>
 </section>
 {/* Interactive Health Widgets (Bento Grid) */}
-<section className="relative z-20 -mt-24 px-6 pb-24 max-w-7xl mx-auto">
+<section id="features" className="relative z-20 -mt-24 px-6 pb-24 max-w-7xl mx-auto">
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 {/* Heart Rate Widget */}
 <div className="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
