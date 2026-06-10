@@ -164,19 +164,7 @@ export default function Register() {
         <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <span className="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(255,177,192,0.4)]">VitalSync</span>
         </Link>
-        <nav className="hidden md:flex gap-8 items-center">
-          <Link className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" to="/">Overview</Link>
-          <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Biometrics</a>
-          <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Optimization</a>
-        </nav>
-        <div className="flex items-center gap-4">
-          <button className="text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300">
-            <span className="material-symbols-outlined" data-icon="settings">settings</span>
-          </button>
-          <button className="text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300">
-            <span className="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-          </button>
-        </div>
+
       </header>
 
       {/* Main Content Area */}
