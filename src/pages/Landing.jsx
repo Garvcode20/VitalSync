@@ -343,7 +343,7 @@ void main() {
 </div>
 </section>
 {/* Interactive Health Widgets (Bento Grid) */}
-<section id="features" className="relative z-20 -mt-24 px-6 pb-24 max-w-7xl mx-auto">
+<section className="relative z-20 -mt-24 px-6 pb-24 max-w-7xl mx-auto">
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 {/* Heart Rate Widget */}
 <div className="bg-surface-container/40 backdrop-blur-xl rounded-xl p-6 neon-border-glow transition-all duration-300 group flex flex-col gap-4 relative overflow-hidden">
