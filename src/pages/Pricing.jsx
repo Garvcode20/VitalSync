@@ -127,8 +127,8 @@ export default function Pricing() {
           </div>
           <div className="flex items-center gap-4">
             <Link to="/login" className="hidden sm:block text-on-surface-variant font-label hover:text-primary transition-colors">Login</Link>
-            <Link to="/dashboard" className="bg-primary/10 border border-primary text-primary px-5 py-2 font-headline font-bold text-sm tracking-tight hover:bg-primary hover:text-on-primary transition-all duration-300 active:scale-95 shadow-[0_0_16px_rgba(255,45,120,0.2)]">
-              Sync Now
+            <Link to="/register" className="bg-primary/10 border border-primary text-primary px-5 py-2 font-headline font-bold text-sm tracking-tight hover:bg-primary hover:text-on-primary transition-all duration-300 active:scale-95 shadow-[0_0_16px_rgba(255,45,120,0.2)]">
+              Sign Up
             </Link>
           </div>
         </div>
