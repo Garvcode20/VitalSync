@@ -202,9 +202,9 @@ export default function Demo() {
               <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
                 Ultra-low latency data streaming between your neural implants and the cloud processing core.
               </p>
-              <Link className="inline-flex items-center gap-2 text-primary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all" to="#">
+              <button className="inline-flex items-center gap-2 text-primary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all focus:outline-none">
                 Details <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </Link>
+              </button>
             </div>
           </div>
           <div className="group relative bg-surface-container-low border border-white/5 p-8 rounded-xl hover:border-secondary/50 transition-all duration-500 overflow-hidden">
@@ -218,9 +218,9 @@ export default function Demo() {
               <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
                 AI-driven forecasting models that predict health trends before they manifest physically.
               </p>
-              <Link className="inline-flex items-center gap-2 text-secondary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all" to="#">
+              <button className="inline-flex items-center gap-2 text-secondary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all focus:outline-none">
                 Details <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </Link>
+              </button>
             </div>
           </div>
           <div className="group relative bg-surface-container-low border border-white/5 p-8 rounded-xl hover:border-tertiary/50 transition-all duration-500 overflow-hidden">
@@ -234,9 +234,9 @@ export default function Demo() {
               <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
                 Military-grade encryption for your most sensitive biological data fingerprints.
               </p>
-              <Link className="inline-flex items-center gap-2 text-tertiary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all" to="#">
+              <button className="inline-flex items-center gap-2 text-tertiary font-label text-xs uppercase tracking-widest group-hover:gap-4 transition-all focus:outline-none">
                 Details <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </Link>
+              </button>
             </div>
           </div>
         </section>
@@ -308,10 +308,10 @@ export default function Demo() {
             <p className="font-label uppercase tracking-widest text-xs text-on-surface-variant">© 2077 VitalSync Neural Systems. All rights reserved. Data encrypted via Bio-Link Protocol.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-8">
-            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="#">Privacy Protocol</Link>
-            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="#">Service Terms</Link>
-            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="#">Neural Safety</Link>
-            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="#">API Access</Link>
+            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="/privacy">Privacy Protocol</Link>
+            <Link className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors" to="/terms">Service Terms</Link>
+            <span className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer">Neural Safety</span>
+            <span className="font-label uppercase tracking-widest text-xs text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer">API Access</span>
           </div>
         </div>
       </footer>
