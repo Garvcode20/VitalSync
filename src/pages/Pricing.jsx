@@ -115,25 +115,21 @@ export default function Pricing() {
 
       {/* TopNavBar */}
       <nav className="fixed top-0 w-full z-50 bg-surface/40 backdrop-blur-xl border-b border-primary/20">
-        <div className="flex justify-between items-center px-6 py-4 max-w-full">
+        <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
           <Link className="flex items-center gap-3 hover:opacity-80 transition-opacity" to="/">
             <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-lg shadow-primary/50">V</div>
             <div className="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-primary">VitalSync</div>
           </Link>
-          <div className="hidden md:flex gap-8">
-            <Link className="font-headline font-bold text-on-surface hover:text-primary transition-all duration-300" to="/dashboard">Dashboard</Link>
-            <Link className="font-headline font-bold text-on-surface hover:text-primary transition-all duration-300" to="/#features">Features</Link>
-            <Link className="font-headline font-bold text-on-surface hover:text-primary transition-all duration-300" to="#">Workouts</Link>
-            <Link className="font-headline font-bold text-on-surface hover:text-primary transition-all duration-300" to="#">Nutrition</Link>
-            <Link className="font-headline font-bold text-on-surface hover:text-primary transition-all duration-300" to="#">Insights</Link>
+          <div className="hidden md:flex gap-6">
+            <Link to="/dashboard" className="font-label text-on-surface-variant hover:text-primary hover:[text-shadow:0_0_8px_currentColor] transition-all duration-300">Dashboard</Link>
+            <Link to="/demo" className="font-label text-on-surface-variant hover:text-primary hover:[text-shadow:0_0_8px_currentColor] transition-all duration-300">Demo</Link>
+            <Link to="/pricing" className="font-label text-primary border-b-2 border-primary pb-1 transition-all duration-300">Neural Pricing</Link>
           </div>
           <div className="flex items-center gap-4">
-            <button className="text-on-surface hover:text-primary transition-transform active:scale-95">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-            <button className="text-on-surface hover:text-primary transition-transform active:scale-95">
-              <span className="material-symbols-outlined">settings</span>
-            </button>
+            <Link to="/login" className="hidden sm:block text-on-surface-variant font-label hover:text-primary transition-colors">Login</Link>
+            <Link to="/dashboard" className="bg-primary/10 border border-primary text-primary px-5 py-2 font-headline font-bold text-sm tracking-tight hover:bg-primary hover:text-on-primary transition-all duration-300 active:scale-95 shadow-[0_0_16px_rgba(255,45,120,0.2)]">
+              Sync Now
+            </Link>
           </div>
         </div>
       </nav>
