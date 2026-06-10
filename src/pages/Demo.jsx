@@ -54,11 +54,11 @@ export default function Demo() {
             <Link className="text-primary font-bold drop-shadow-[0_0_5px_currentColor] border-b-2 border-primary pb-1 font-label" to="/demo">Demo</Link>
             <Link className="text-on-surface/70 hover:text-secondary transition-colors duration-300 font-label" to="/#features">Features</Link>
             <Link className="text-on-surface/70 hover:text-secondary transition-colors duration-300 font-label" to="/pricing">Pricing</Link>
-            <Link className="text-on-surface/70 hover:text-secondary transition-colors duration-300 font-label" to="#">About Us</Link>
+            <Link className="text-on-surface/70 hover:text-secondary transition-colors duration-300 font-label" to="/about">About Us</Link>
           </div>
           <div className="flex items-center gap-4">
-            <button className="px-4 py-2 text-on-surface/70 hover:text-primary transition-all duration-300 font-label text-sm uppercase tracking-wider">Login</button>
-            <Link to="/pricing" className="bg-primary-container text-on-primary-container px-6 py-2 font-bold font-headline transition-all duration-300 ease-out active:scale-95 hover:drop-shadow-[0_0_12px_rgba(255,45,120,0.6)] inline-block">Sync Now</Link>
+            <Link className="px-4 py-2 text-on-surface/70 hover:text-primary transition-all duration-300 font-label text-sm uppercase tracking-wider" to="/login">Login</Link>
+            <Link to="/register" className="bg-primary-container text-on-primary-container px-6 py-2 font-bold font-headline transition-all duration-300 ease-out active:scale-95 hover:drop-shadow-[0_0_12px_rgba(255,45,120,0.6)] inline-block">Sign Up</Link>
           </div>
         </div>
       </nav>
