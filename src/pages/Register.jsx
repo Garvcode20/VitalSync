@@ -161,8 +161,9 @@ export default function Register() {
 
       {/* TopAppBar */}
       <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-surface/10 border-b border-white/10 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(255,177,192,0.4)]">VitalSync</span>
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-lg shadow-primary/50">V</div>
+          <span className="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
         </Link>
 
       </header>

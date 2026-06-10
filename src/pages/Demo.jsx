@@ -49,7 +49,10 @@ export default function Demo() {
       {/* TOP NAVIGATION BAR */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(255,45,120,0.1)]">
         <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
-          <Link to="/" className="text-2xl font-headline font-bold tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(255,45,120,0.8)] hover:opacity-80 transition-opacity">VitalSync</Link>
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-lg shadow-primary/50">V</div>
+            <span className="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
+          </Link>
           <div className="hidden md:flex items-center gap-8">
             <Link className="text-primary font-bold drop-shadow-[0_0_5px_currentColor] border-b-2 border-primary pb-1 font-label" to="/demo">Demo</Link>
             <Link className="text-on-surface/70 hover:text-secondary transition-colors duration-300 font-label" to="/#features">Features</Link>

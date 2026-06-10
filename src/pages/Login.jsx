@@ -163,10 +163,8 @@ export default function Login() {
 
       <header className="z-20 w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6 backdrop-blur-xl bg-surface/20 border-b border-white/5">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-green-200">
-            V
-          </div>
-          <span className="font-display-lg text-headline-md tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(255,177,192,0.6)]">VitalSync</span>
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary font-bold shadow-lg shadow-primary/50">V</div>
+          <span className="text-2xl font-display font-black tracking-tighter text-primary italic neon-text-glow">VitalSync</span>
         </Link>
         <div className="flex gap-4">
           <button className="text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300">
