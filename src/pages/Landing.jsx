@@ -194,12 +194,12 @@ void main() {
                             Track your health metrics, visualize trends, and crush your wellness goals with the most beautiful dashboard ever created.
                         </p>
 <div className="flex flex-wrap gap-4">
-<button className="px-8 py-4 bg-secondary text-on-secondary font-headline font-bold rounded-full hover:opacity-80 transition-all duration-300 shadow-[0_0_16px_#00ffcc] active:scale-95 flex items-center gap-3">
+<Link to="/register" className="px-8 py-4 bg-secondary text-on-secondary font-headline font-bold rounded-full hover:opacity-80 transition-all duration-300 shadow-[0_0_16px_#00ffcc] active:scale-95 flex items-center gap-3">
                                 Get Started for Free<span className="material-symbols-outlined">arrow_forward</span>
-</button>
-<button className="px-8 py-4 bg-transparent text-on-surface font-headline font-bold rounded-full border border-outline-variant hover:bg-surface-variant transition-all duration-300 active:scale-95">
+</Link>
+<Link to="/demo" className="px-8 py-4 bg-transparent text-on-surface font-headline font-bold rounded-full border border-outline-variant hover:bg-surface-variant transition-all duration-300 active:scale-95 flex items-center justify-center">
                                 View Demo
-                            </button>
+                            </Link>
 </div>
 <div className="flex items-center gap-4 mt-4">
 <div className="flex -space-x-3">
