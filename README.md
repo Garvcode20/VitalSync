@@ -1,6 +1,5 @@
 # VitalSync
 
-**Website:** [vitalsync-live.vercel.app](https://vitalsync-live.vercel.app)
 
 VitalSync is a health tracking app designed to integrate seamlessly with wearable devices and provide users with actionable insights into their daily wellness. Whether through syncing with popular fitness trackers or manual entry, users can monitor key health metrics, visualize trends, and stay motivated through reminders and goals. The platform also includes a web-based admin dashboard for analytics and user engagement monitoring.
 
